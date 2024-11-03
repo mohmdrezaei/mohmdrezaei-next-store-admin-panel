@@ -1,6 +1,6 @@
 
 import styles from "./Pagination.module.css";
-import { useEffect } from "react";
+
 
 function Pagination({
   page,

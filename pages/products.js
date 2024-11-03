@@ -100,7 +100,7 @@ function ProductsPage() {
   };
   useEffect(() => {
     if ( error || data?.data?.length === 0) {
-      setSearchParams({ page: page - 1 });
+      setPage(page - 1 );
     }
   }, [error, data ]);
 
