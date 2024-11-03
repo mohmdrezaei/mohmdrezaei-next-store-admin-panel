@@ -1,0 +1,133 @@
+.container {
+    width: 1140px;
+    margin: auto;
+}
+
+.container header {
+    background-color: #fff;
+    border: 1px solid #E4E4E4;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    position: sticky;
+    top : 10px
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search input {
+    padding: 5px 10px;
+    margin: 10px 0px;
+    border: none;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    gap: 5px;
+}
+.user svg {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 10px 10px 10px;
+}
+
+.add button {
+    border: none;
+    background-color: #55A3F0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border-radius: 30px;
+    border: 1px solid #E4E4E4;
+    overflow: hidden;
+    font-size: 14px;
+    margin-bottom: 50px;
+}
+
+.table th {
+    background-color: #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+    height: 70px;
+    
+
+}
+.table tbody tr {
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #F2F2F2;
+    color: #282828;
+
+}
+.table tbody tr:hover{
+    background-color: #F5F5F5;
+}
+
+.table tr td:nth-child(1) {
+    width: 20%;
+}
+
+.table tr td:last-child {
+    width: 20%;
+}
+
+.id {
+    width: 35%;
+}
+
+.oprations a {
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+
+.table svg {
+    cursor: pointer;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.groupDelete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 100%;
+    }
+    
+}
