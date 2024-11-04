@@ -1,20 +1,15 @@
-
+import { useRouter } from "next/router";
 import styles from "./Pagination.module.css";
 
-
-function Pagination({
-  page,
-  setPage,
-  pages,
-
-}) {
-  // useEffect(() => {
-  //   setPage(JSON.parse(searchParams.get("page")) || 1);
-  // }, [searchParams]);
+function Pagination({ page, setPage, pages }) {
+  const router = useRouter();
 
   const handlePageClick = (pageNumber) => {
     setPage(pageNumber);
-    // setSearchParams({ page: pageNumber });
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: pageNumber },
+    });
   };
   const pageNumbers = [];
   for (let i = 1; i <= pages; i++) {
