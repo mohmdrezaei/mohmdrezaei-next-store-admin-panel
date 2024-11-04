@@ -1,15 +1,9 @@
-import { useRouter } from "next/router";
 import styles from "./Pagination.module.css";
 
 function Pagination({ page, setPage, pages }) {
-  const router = useRouter();
-
   const handlePageClick = (pageNumber) => {
     setPage(pageNumber);
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: pageNumber },
-    });
+    // router.push(`products/?page=${pageNumber}` );
   };
   const pageNumbers = [];
   for (let i = 1; i <= pages; i++) {

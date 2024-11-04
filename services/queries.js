@@ -7,6 +7,7 @@ const useGetProducts = (page)=>{
     const { data, error, isLoading, isPending, refetch } = useQuery({
         queryKey,
         queryFn,
+        keepPreviousData: true,
       });
     
       return { data, error, isLoading, isPending, refetch };

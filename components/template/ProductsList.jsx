@@ -1,5 +1,5 @@
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import styles from "../../pages/ProductsPage.module.css";
+import styles from "./ProductsPage.module.css";
 function ProductsList({
   product,
   productSelectHandler,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddModal.module.css";
 import { useForm } from "react-hook-form";
-import { useAddProduct, useUpdateProduct } from "../../services/mutations";
+import { useAddProduct, useUpdateProduct } from "../../../services/mutations";
 
 function AddModal({ setAddModal, product }) {
   const [form, setForm] = useState({ name: "", quantity: "", price: "" });
