@@ -1,14 +1,23 @@
+import api from "../configs/api";
+import HomePage from "../components/template/HomePage";
 
-import { useState } from "react";
-import LoginPage from "../components/template/LoginPage";
-
-function Login() {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-  return  <LoginPage formData={formData} setFormData={setFormData} />
+function index({ data }) {
+  return (
+    <HomePage data={data} />
+  );
 }
 
-export default Login;
+export default index;
+
+export async function getStaticProps() {
+  const data = await api.get("http://localhost:3001/products");
+  console.log(data)
+    if(!data.data){
+        return{
+            notFound:tr
+        }
+    }
+  return {
+    props: { data },
+  };
+}

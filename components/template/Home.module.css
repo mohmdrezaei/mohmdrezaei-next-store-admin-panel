@@ -1,0 +1,95 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #55a3f0;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 0 10px 60px;
+  border-radius: 10px;
+  position: sticky;
+  top: 10px;
+}
+
+.header h1{
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.header a {
+ display: flex;
+ align-items: center;
+ gap: 5px;
+}
+
+.header div {
+  font-size: 1.6rem;
+  background-color: #fff;
+  text-align: center;
+  color: #55a3f0;
+  height: 35px;
+  width: 35px;
+  border-radius: 9px;
+  padding: 2px;
+  position: relative;
+}
+
+.header span {
+  font-size: 0.9rem;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 50%;
+  position :absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.footer {
+  text-align: center;
+  background-color: #55a3f0;
+  padding: 20px;
+  margin: 10px;
+  margin-top: 280px;
+  border-radius: 10px;
+  color: #fff;
+  
+}
+.products{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap:15px
+}
+.productCard {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+ 
+}
+
+.productName {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.productPrice {
+  font-size: 1.2em;
+  color: #e74c3c;
+  margin-bottom: 10px;
+}
+
+.productQuantity {
+  font-size: 1em;
+  color: #555;
+}
+
+
+
