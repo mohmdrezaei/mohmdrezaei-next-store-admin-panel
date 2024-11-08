@@ -3,8 +3,8 @@ import { deleteCookie, getCookie } from "../../utils/cookie";
 import getUserInfoFromToken from "../../services/userInfo";
 import { useEffect, useState } from "react";
 import { useGetProducts } from "../../services/queries";
-import { useProductDeletion } from "../../hooks/useProduct";
 import DeleteModal from "../modules/DeleteModal/DeleteModal";
+import { useProductDeletion } from "../../hooks/useProduct";
 import AddModal from "../modules/AddModal/AddModal";
 
 import { BsTrash } from "react-icons/bs";

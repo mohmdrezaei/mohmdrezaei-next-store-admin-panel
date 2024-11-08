@@ -1,6 +1,5 @@
 import { useState } from "react";
 import RegisterPage from "../components/template/RegisterPage";
-import PublicRoutes from "../router/PublicRoutes";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -9,11 +8,23 @@ function Register() {
     confirmPassword: "",
   });
 
-  return (
-    <PublicRoutes>
-      <RegisterPage formData={formData} setFormData={setFormData} />
-    </PublicRoutes>
-  );
+  return <RegisterPage formData={formData} setFormData={setFormData} />;
 }
 
 export default Register;
+
+export async function getServerSideProps(context) {
+  const { token } = context.req.cookies;
+  if (token) {
+    return {
+      redirect: {
+        destination: "/products",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

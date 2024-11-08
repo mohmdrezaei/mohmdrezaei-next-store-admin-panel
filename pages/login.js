@@ -1,6 +1,5 @@
 import { useState } from "react";
 import LoginPage from "../components/template/LoginPage.js";
-import PublicRoutes from "../router/PublicRoutes.jsx";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -8,11 +7,23 @@ function Login() {
     password: "",
     confirmPassword: "",
   });
-  return (
-    <PublicRoutes>
-      <LoginPage formData={formData} setFormData={setFormData} />
-    </PublicRoutes>
-  );
+  return <LoginPage formData={formData} setFormData={setFormData} />;
 }
 
 export default Login;
+
+export async function getServerSideProps(context) {
+  const { token } = context.req.cookies;
+  if (token) {
+    return {
+      redirect: {
+        destination: "/products",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

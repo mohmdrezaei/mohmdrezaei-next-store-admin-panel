@@ -1,13 +1,22 @@
 import ProductsPage from "../components/template/ProductsPage";
-import ProtectedRoute from "../router/ProtectedRoute";
-import Auth from "../router/PublicRoutes";
 
 function Products() {
-  return(
-  <ProtectedRoute>
-    <ProductsPage />
-  </ProtectedRoute>
-  )
+  return <ProductsPage />;
 }
 
 export default Products;
+
+export async function getServerSideProps(context) {
+  const { token } = context.req.cookies;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}
