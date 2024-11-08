@@ -1,4 +1,4 @@
-import { useDeleteProduct, useDeleteProducts, useUpdateProduct } from "../services/mutations";
+import { useAddProduct, useDeleteProduct, useDeleteProducts, useUpdateProduct } from "../services/mutations";
 
 function useProductMutation(product, setAddModal) {
     return product ? useUpdateProduct(setAddModal) : useAddProduct(setAddModal);

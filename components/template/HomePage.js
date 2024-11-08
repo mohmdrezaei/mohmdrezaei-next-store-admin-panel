@@ -1,12 +1,19 @@
 import Link from "next/link";
 import styles from "./Home.module.css";
 import { FaUser } from "react-icons/fa";
+import { getCookie } from "../../utils/cookie";
+import { useEffect, useState } from "react";
 function HomePage({data}) {
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    setToken(getCookie("token"));
+  }, []);
+  
   return (
     <>
     <header className={styles.header}>
       <h1 >محصولات ما</h1>
-      <Link href="/login"><FaUser/>ورود</Link>
+      {token ? <Link href="/products">داشبورد</Link> : <Link href="/login"><FaUser/>ورود</Link>}
    
       
     </header>
