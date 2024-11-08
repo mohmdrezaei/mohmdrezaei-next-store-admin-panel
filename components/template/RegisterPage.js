@@ -36,7 +36,7 @@ function RegisterPage({ formData, setFormData }) {
         onSuccess: () => {
           toast.success("ثبت نام با موفقیت انجام شد!");
           setFormData({ username: "", password: "" });
-          router.push("/");
+          router.push("/login");
         },
         onError: () => {
           toast.error("ثبت نام با مشکل روبرو شد");

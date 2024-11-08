@@ -3,7 +3,7 @@ import { deleteCookie, getCookie } from "../../utils/cookie";
 import getUserInfoFromToken from "../../services/userInfo";
 import { useEffect, useState } from "react";
 import { useGetProducts } from "../../services/queries";
-import { useDeleteProduct, useDeleteProducts } from "../../services/mutations";
+import { useProductDeletion } from "../../hooks/useProduct";
 import DeleteModal from "../modules/DeleteModal/DeleteModal";
 import AddModal from "../modules/AddModal/AddModal";
 
@@ -17,6 +17,8 @@ import styles from "./ProductsPage.module.css";
 import Pagination from "../modules/pagination/Pagination";
 import ProductsList from "./ProductsList";
 import Loader from "../modules/Loader";
+import { toast } from "react-toastify";
+
 
 function ProductsPage() {
   const token = getCookie("token");
@@ -36,10 +38,7 @@ function ProductsPage() {
 
   const { isLoading, data, error, isPending } = useGetProducts(page);
 
-  const { mutate } =
-    selectedProducts.length > 1
-      ? useDeleteProducts(setDeleteModal)
-      : useDeleteProduct(setDeleteModal);
+  const { mutate } = useProductDeletion(selectedProducts, setDeleteModal);
 
   const productSelectHandler = (id) => {
     setSelectedProducts((selected) =>

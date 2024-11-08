@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddModal.module.css";
 import { useForm } from "react-hook-form";
-import { useAddProduct, useUpdateProduct } from "../../../services/mutations";
+import { useProductMutation } from "../../../hooks/useProduct";
+
+
+
+
 
 function AddModal({ setAddModal, product }) {
   const [form, setForm] = useState({ name: "", quantity: "", price: "" });
@@ -12,13 +16,12 @@ function AddModal({ setAddModal, product }) {
     setValue,
   } = useForm();
 
-  const { mutate, isPending } = product
-    ? useUpdateProduct(setAddModal)
-    : useAddProduct(setAddModal);
+  const { mutate, isPending } = useProductMutation(product, setAddModal);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const submitHandler = () => {
     if (product) {
       mutate({ id: product.id, ...form });
@@ -38,7 +41,8 @@ function AddModal({ setAddModal, product }) {
       setValue("quantity", product.quantity);
       setValue("price", product.price);
     }
-  }, [product]);
+  }, [product, setValue]);
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
@@ -67,7 +71,7 @@ function AddModal({ setAddModal, product }) {
                 name="quantity"
                 placeholder="تعداد موجودی"
                 value={form.quantity}
-                onChange={(e) => se}
+                onChange={changeHandler}
                 id="quantity"
                 {...register("quantity", { required: true })}
               />
