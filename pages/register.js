@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import RegisterPage from "../components/template/RegisterPage";
+import PublicRoutes from "../router/PublicRoutes";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -8,9 +8,12 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
-  
 
-  return  <RegisterPage formData={formData} setFormData={setFormData} />
+  return (
+    <PublicRoutes>
+      <RegisterPage formData={formData} setFormData={setFormData} />
+    </PublicRoutes>
+  );
 }
 
 export default Register;

@@ -79,7 +79,7 @@ function ProductsPage() {
   };
   const logoutHandler = () => {
     deleteCookie("token");
-    router.push("/");
+    router.push("/login");
   };
 
   const showAddModal = (e) => {
@@ -128,7 +128,7 @@ function ProductsPage() {
         <div className={styles.user}>
           <img src="/images/profile.png" alt="" />
           <div>
-            <p>{userInfo.username}</p>
+            <p>{userInfo?.username}</p>
             <span>مدیر</span>
           </div>
           <CiLogout size="27px" title="خروج" onClick={logoutHandler} />

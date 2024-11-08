@@ -2,7 +2,7 @@ import TanstackQueryProvider from "../provider/TanstackQueryProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
-import '../styles/fonts.css'
+import "../styles/fonts.css";
 
 function MyApp({ Component, pageProps }) {
   return (
