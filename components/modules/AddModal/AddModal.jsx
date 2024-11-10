@@ -3,10 +3,6 @@ import styles from "./AddModal.module.css";
 import { useForm } from "react-hook-form";
 import { useProductMutation } from "../../../hooks/useProduct";
 
-
-
-
-
 function AddModal({ setAddModal, product }) {
   const [form, setForm] = useState({ name: "", quantity: "", price: "" });
   const {

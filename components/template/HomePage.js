@@ -21,8 +21,8 @@ function HomePage({data}) {
       {data.data.map((product) => (
         <div key={product.id} className={styles.productCard}>
           <h2 className={styles.productName}>{product.name}</h2>
-          <p className={styles.productPrice}>{product.price}تومان</p>
-          <p className={styles.productQuantity}>{product.quantity}</p>
+          <p className={styles.productPrice}>{product.price} تومان</p>
+          <p className={styles.productQuantity}>موجودی: {product.quantity}</p>
         </div>
       ))}
     </div>

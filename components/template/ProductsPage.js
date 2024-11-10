@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { deleteCookie, getCookie } from "../../utils/cookie";
 import getUserInfoFromToken from "../../services/userInfo";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useGetProducts } from "../../services/queries";
 import DeleteModal from "../modules/DeleteModal/DeleteModal";
 import { useProductDeletion } from "../../hooks/useProduct";
@@ -18,14 +18,16 @@ import Pagination from "../modules/pagination/Pagination";
 import ProductsList from "./ProductsList";
 import Loader from "../modules/Loader";
 import { toast } from "react-toastify";
+import api from "../../configs/api";
 
-
-function ProductsPage() {
+function ProductsPage({initialData}) {
   const token = getCookie("token");
   const userInfo = getUserInfoFromToken(token);
 
   const router = useRouter();
-  const [page, setPage] = useState(1);
+  const {page}= router.query
+  
+  const [initPage, setInitPage] = useState(page || 1);
   const [deleteModal, setDeleteModal] = useState({
     show: false,
     message: "",
@@ -35,8 +37,11 @@ function ProductsPage() {
   const [addModal, setAddModal] = useState({ show: false, product: null });
   const [showCheckbox, setShowCheckbox] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  
 
-  const { isLoading, data, error, isPending } = useGetProducts(page);
+  const { isLoading, error  } = useGetProducts(initPage  );
+  const [products, setProducts] = useState(initialData )
+  console.log(products)
 
   const { mutate } = useProductDeletion(selectedProducts, setDeleteModal);
 
@@ -94,16 +99,33 @@ function ProductsPage() {
     setShowCheckbox(false);
     setSelectedProducts([]);
   };
+  const fetchProducts = useCallback(async () => {
+    try {
+      const response = await api.get(`products?page=${initPage}&limit=10`);
+      const newData = await response.data;
+      setProducts(newData);
+    } catch (error) {
+     console.log(error.message)
+     if (error.response && error.response.status === 400) {
+        setInitPage(initPage - 1);
+        router.push({ pathname: "/products", query: { page: initPage - 1 } });
+      }
+    }
+  }, [initPage , error]);
 
   useEffect(() => {
-    if (error || data?.data?.length === 0) {
-      setPage(page - 1);
-    }
-  }, [error, data]);
+    setInitPage(page || 1);
+  }, [page]);
+
+  
+
+  useEffect(() => {
+    fetchProducts()
+  }, [selectedProducts, addModal, initPage ,deleteModal]);
 
   if (isLoading) return <Loader />;
 
-  const products = data?.data || [];
+  
 
   return (
     <div className={styles.container}>
@@ -144,10 +166,6 @@ function ProductsPage() {
           <button onClick={showAddModal}>افزودن محصول</button>
         </div>
       </div>
-
-      {isPending ? (
-        <p>Loding...</p>
-      ) : (
         <table className={styles.table}>
           <thead>
             <tr>
@@ -200,9 +218,8 @@ function ProductsPage() {
             )}
           </tbody>
         </table>
-      )}
-      {data?.totalPages > 1 && (
-        <Pagination page={page} setPage={setPage} pages={data?.totalPages} />
+      {initialData?.totalPages > 1 && (
+        <Pagination page={initPage} setPage={setInitPage} pages={initialData?.totalPages} />
       )}
     </div>
   );
