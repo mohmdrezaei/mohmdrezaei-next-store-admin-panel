@@ -9,7 +9,7 @@ const useGetProducts = (page) => {
     queryFn,
   });
 
-  return { data, error, isLoading, isPending, refetch };
+  return { data, error, isLoading, isPending };
 };
 
 export { useGetProducts };
