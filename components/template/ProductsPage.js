@@ -101,8 +101,8 @@ function ProductsPage({initialData}) {
   };
   const fetchProducts = useCallback(async () => {
     try {
-      const response = await api.get(`products?page=${initPage}&limit=10`);
-      const newData = await response.data;
+      const newData = await api.get(`products?page=${initPage}&limit=10`);
+      
       setProducts(newData);
     } catch (error) {
      console.log(error.message)
@@ -197,8 +197,8 @@ function ProductsPage({initialData}) {
             </tr>
           </thead>
           <tbody>
-            {products.length > 0 ? (
-              products?.map((product) => (
+            {products.data.length > 0 ? (
+              products?.data.map((product) => (
                 <ProductsList
                   key={product.id}
                   product={product}
@@ -218,8 +218,8 @@ function ProductsPage({initialData}) {
             )}
           </tbody>
         </table>
-      {initialData?.totalPages > 1 && (
-        <Pagination page={initPage} setPage={setInitPage} pages={initialData?.totalPages} />
+      {products?.totalPages > 1 && (
+        <Pagination page={initPage} setPage={setInitPage} pages={products?.totalPages} />
       )}
     </div>
   );
