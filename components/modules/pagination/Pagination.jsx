@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styles from "./Pagination.module.css";
 
-function Pagination({ pages   }) {
+function Pagination({ pages }) {
   const router = useRouter();
   const { query } = router;
   const currentPage = parseInt(query.page) || 1;

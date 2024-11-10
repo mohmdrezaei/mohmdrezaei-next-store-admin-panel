@@ -20,13 +20,13 @@ import Loader from "../modules/Loader";
 import { toast } from "react-toastify";
 import api from "../../configs/api";
 
-function ProductsPage({initialData}) {
+function ProductsPage({ initialData }) {
   const token = getCookie("token");
   const userInfo = getUserInfoFromToken(token);
 
   const router = useRouter();
-  const {page}= router.query
-  
+  const { page } = router.query;
+
   const [initPage, setInitPage] = useState(page || 1);
   const [deleteModal, setDeleteModal] = useState({
     show: false,
@@ -37,11 +37,9 @@ function ProductsPage({initialData}) {
   const [addModal, setAddModal] = useState({ show: false, product: null });
   const [showCheckbox, setShowCheckbox] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  
 
-  const { isLoading, error  } = useGetProducts(initPage  );
-  const [products, setProducts] = useState(initialData )
-  console.log(products)
+  const { isLoading, error } = useGetProducts(initPage);
+  const [products, setProducts] = useState(initialData);
 
   const { mutate } = useProductDeletion(selectedProducts, setDeleteModal);
 
@@ -102,30 +100,25 @@ function ProductsPage({initialData}) {
   const fetchProducts = useCallback(async () => {
     try {
       const newData = await api.get(`products?page=${initPage}&limit=10`);
-      
       setProducts(newData);
     } catch (error) {
-     console.log(error.message)
-     if (error.response && error.response.status === 400) {
+      console.log(error.message);
+      if (error.response && error.response.status === 400) {
         setInitPage(initPage - 1);
         router.push({ pathname: "/products", query: { page: initPage - 1 } });
       }
     }
-  }, [initPage , error]);
+  }, [initPage, error]);
 
   useEffect(() => {
     setInitPage(page || 1);
   }, [page]);
 
-  
-
   useEffect(() => {
-    fetchProducts()
-  }, [selectedProducts, addModal, initPage ,deleteModal]);
+    fetchProducts();
+  }, [selectedProducts, addModal, initPage, deleteModal]);
 
   if (isLoading) return <Loader />;
-
-  
 
   return (
     <div className={styles.container}>
@@ -166,60 +159,64 @@ function ProductsPage({initialData}) {
           <button onClick={showAddModal}>افزودن محصول</button>
         </div>
       </div>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>نام کالا</th>
-              <th> موجودی</th>
-              <th> قیمت</th>
-              <th> شناسه کالا</th>
-              <th>
-                {!showCheckbox ? (
-                  <FiMoreHorizontal
-                    size="25px"
-                    onClick={() => setShowCheckbox(true)}
-                  />
-                ) : (
-                  <div className={styles.groupDelete}>
-                    <BsTrash
-                      size="20px"
-                      color="#F43F5E"
-                      onClick={(e) => deleteHandler(e, null)}
-                    />
-                    <IoCloseSharp
-                      size="20px"
-                      onClick={closeHandler}
-                      color="#862b3a"
-                    />
-                  </div>
-                )}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.data.length > 0 ? (
-              products?.data.map((product) => (
-                <ProductsList
-                  key={product.id}
-                  product={product}
-                  selectedProducts={selectedProducts}
-                  productSelectHandler={productSelectHandler}
-                  showCheckbox={showCheckbox}
-                  deleteHandler={deleteHandler}
-                  showEditModal={showEditModal}
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>نام کالا</th>
+            <th> موجودی</th>
+            <th> قیمت</th>
+            <th> شناسه کالا</th>
+            <th>
+              {!showCheckbox ? (
+                <FiMoreHorizontal
+                  size="25px"
+                  onClick={() => setShowCheckbox(true)}
                 />
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" style={{ textAlign: "center", color: "red" }}>
-                  هیچ محصولی وجود ندارد.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              ) : (
+                <div className={styles.groupDelete}>
+                  <BsTrash
+                    size="20px"
+                    color="#F43F5E"
+                    onClick={(e) => deleteHandler(e, null)}
+                  />
+                  <IoCloseSharp
+                    size="20px"
+                    onClick={closeHandler}
+                    color="#862b3a"
+                  />
+                </div>
+              )}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.data.length > 0 ? (
+            products?.data.map((product) => (
+              <ProductsList
+                key={product.id}
+                product={product}
+                selectedProducts={selectedProducts}
+                productSelectHandler={productSelectHandler}
+                showCheckbox={showCheckbox}
+                deleteHandler={deleteHandler}
+                showEditModal={showEditModal}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center", color: "red" }}>
+                هیچ محصولی وجود ندارد.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
       {products?.totalPages > 1 && (
-        <Pagination page={initPage} setPage={setInitPage} pages={products?.totalPages} />
+        <Pagination
+          page={initPage}
+          setPage={setInitPage}
+          pages={products?.totalPages}
+        />
       )}
     </div>
   );

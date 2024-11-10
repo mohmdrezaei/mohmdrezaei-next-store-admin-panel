@@ -12,7 +12,6 @@ export default index;
 
 export async function getStaticProps() {
   const data = await api.get("products");
-  console.log(data)
     if(!data.data){
         return{
             notFound:true
